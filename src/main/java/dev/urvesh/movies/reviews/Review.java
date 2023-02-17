@@ -1,6 +1,6 @@
-package dev.urvesh.movies;
+package dev.urvesh.movies.reviews;
 
-import dev.urvesh.movies.reviews.Review;
+import dev.urvesh.movies.reviewReply.ReviewReply;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -11,20 +11,22 @@ import org.springframework.data.mongodb.core.mapping.DocumentReference;
 
 import java.util.List;
 
-@Document(collection = "movies")
+@Document(collection = "reviews")
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class Movie {
+public class Review {
+    public Review(String reviewBody, String imdbId) {
+        this.body = reviewBody;
+        this.imdbId = imdbId;
+    }
     @Id
     private ObjectId id;
+    private String body;
+
     private String imdbId;
-    private String title;
-    private String releaseDate;
-    private String trailerLink;
-    private String poster;
-    private List<String> genres;
-    private List<String> backdrops;
+
     @DocumentReference
-    private List<Review> reviewIds;
+    private List<ReviewReply> reviewReplies;
+
 }
